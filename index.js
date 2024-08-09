@@ -12,9 +12,8 @@ import { UserContoler, PostContoler } from './controllers/index.js';
 
 import dotenv from 'dotenv';
 dotenv.config();
-
 mongoose
-  .connect( process.env.MONGODB_URI)
+  .connect(process.env.MONGODB_URI)
   .then(() => console.log('DB ok'))
   .catch((err) => console.log('DB error', err));
 
