@@ -10,10 +10,10 @@ import { checkAuth, handleValidationErrors } from './utils/index.js';
 
 import { UserContoler, PostContoler } from './controllers/index.js';
 
+require('dotenv').config();
+
 mongoose
-  .connect(
-    'mongodb+srv://moskalikvasiok:wwwwww@cluster0.kwq6eys.mongodb.net/blog?retryWrites=true&w=majority&appName=Cluster0'
-  )
+  .connect( process.env.MONGODB_URI)
   .then(() => console.log('DB ok'))
   .catch((err) => console.log('DB error', err));
 
@@ -86,7 +86,7 @@ app.patch(
 );
 app.patch('/posts/:id/comments', checkAuth, PostContoler.addComment);
 
-app.listen(4444, (err) => {
+app.listen(process.env.PROT || 4444, (err) => {
   if (err) {
     return console.log(err);
   }
