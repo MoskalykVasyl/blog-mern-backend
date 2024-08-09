@@ -10,7 +10,8 @@ import { checkAuth, handleValidationErrors } from './utils/index.js';
 
 import { UserContoler, PostContoler } from './controllers/index.js';
 
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 mongoose
   .connect( process.env.MONGODB_URI)
