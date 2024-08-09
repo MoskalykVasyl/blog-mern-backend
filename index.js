@@ -38,6 +38,7 @@ app.use('/uploads', express.static('uploads'));
 
 app.use(cors());
 
+//Авторизація
 app.post(
   '/auth/login',
   loginValidation,
@@ -52,13 +53,21 @@ app.post(
 );
 app.get('/auth/me', checkAuth, UserContoler.getMe);
 
+//Загрузка фото
 app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
   res.json({
     url: `/uploads/${req.file.originalname}`,
   });
 });
+app.post('/uploadAvatar', upload.single('image'), (req, res) => {
+  res.json({
+    url: `/uploads/${req.file.originalname}`,
+  });
+});
 
+//Для посту
 app.get('/tags', PostContoler.getLastTags);
+app.get('/tags/:tagName', PostContoler.getTagsByName);
 app.get('/posts', PostContoler.getAllPosts);
 app.get('/posts/:id', PostContoler.getOnePost);
 app.delete('/posts/:id', checkAuth, PostContoler.deletePost);
@@ -75,6 +84,7 @@ app.patch(
   handleValidationErrors,
   PostContoler.updatePost
 );
+app.patch('/posts/:id/comments', checkAuth, PostContoler.addComment);
 
 app.listen(4444, (err) => {
   if (err) {

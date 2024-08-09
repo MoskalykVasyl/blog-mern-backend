@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import  CommentSchema  from './Comment.js';
 
 const PostSchema = new mongoose.Schema(
   {
@@ -14,6 +15,11 @@ const PostSchema = new mongoose.Schema(
     tags: {
       type: Array,
       default:[],
+    },
+    comments:[CommentSchema],
+    commentsCount:{
+      type:Number,
+      default:0,
     },
     viewsCount: {
         type:Number,
